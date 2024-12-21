@@ -7,9 +7,9 @@ import (
 )
 
 // ! Worker function, This function simulates the task processing done by each worker.
-// ! id: A unique identifier for the worker.
-// ! tasks: The channel from which the worker will fetch tasks.
-// ! wg: A pointer to the sync.WaitGroup, used to signal when the worker has completed all its tasks.
+// ! workerId: A unique identifier for the worker.
+// ! tasksChannel: The channel from which the worker will fetch tasks.
+// ! waitGroup: A pointer to the sync.WaitGroup, used to signal when the worker has completed all its tasks.
 func worker(workerId int, tasksChannel chan int, waitGroup *sync.WaitGroup) {
 	//! This ensures that wg.Done() is called when the worker function exits. It's used to signal that a goroutine has finished its work, and the WaitGroup can proceed.
 	defer waitGroup.Done()
@@ -41,14 +41,14 @@ func main() {
 	for workerIndex := 1; workerIndex <= totalWorkers; workerIndex++ {
 		//! This increments the WaitGroup counter by 1, indicating that there is one more goroutine to wait for.
 		waitGroup.Add(1)
-		//! Launches a new goroutine that calls the worker function. The worker is assigned an ID (i), the task channel, and the WaitGroup.
+		//! Launches a new goroutine that calls the worker function. The worker is assigned an ID (workerIndex), the task channel, and the WaitGroup.
 		go worker(workerIndex, tasksChannel, &waitGroup)
 	}
 
 	//! Send tasks to the task queue
 	//! Sends 10 tasks into the tasks channel.
-	for i := 1; i <= totalRequestsAllowed; i++ {
-		tasksChannel <- i
+	for taskIndex := 1; taskIndex <= totalRequestsAllowed; taskIndex++ {
+		tasksChannel <- taskIndex
 	}
 
 	//! Closes the tasks channel once all tasks have been sent. This signals the workers that no more tasks are coming, and they should stop processing when the channel is empty.
