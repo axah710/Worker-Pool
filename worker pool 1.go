@@ -63,9 +63,7 @@ func main() {
 
 //? How It Works:-
 //! Goroutines: The main program creates a pool of workers (goroutines), each of which processes tasks from the channel.
-
 //! Task Distribution: Tasks are distributed across the workers through the channel, and the workers process them in parallel. Since the channel is buffered, the program can queue tasks even if all workers are busy, avoiding unnecessary blocking.
-
 //! Synchronization: The sync.WaitGroup ensures that the main program waits for all workers to finish processing before exiting. This prevents the program from exiting prematurely.
 
 //? Complete Workflow Summary:-
