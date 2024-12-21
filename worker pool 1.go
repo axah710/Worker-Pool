@@ -15,11 +15,11 @@ func worker(workerId int, tasksChannel chan int, waitGroup *sync.WaitGroup) {
 	defer waitGroup.Done()
 	//! This loop reads tasks from the tasks channel until it's closed. Each task is processed by the worker.
 	for taskId := range tasksChannel {
-		processTask(workerId, taskId)
+		executeTask(workerId, taskId)
 	}
 }
 
-func processTask(workerId int, taskId int) {
+func executeTask(workerId int, taskId int) {
 	fmt.Printf("Worker %d processing task %d\n", workerId, taskId)
 	//! simulates a task that takes 1 second to process.
 	time.Sleep(time.Second)
