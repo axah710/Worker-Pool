@@ -1,3 +1,8 @@
+// ! This Go program demonstrates a simple task processing workflow using goroutines and channels.
+// ! It initializes a task queue, creates multiple worker goroutines to process tasks concurrently,
+// ! sends a specified number of tasks to the workers, and waits for all tasks to be completed
+// ! before printing a confirmation message. The use of a WaitGroup ensures that the main program
+// ! waits for all workers to finish processing before exiting.
 package main
 
 import (
