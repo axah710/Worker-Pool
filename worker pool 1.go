@@ -11,7 +11,8 @@ import (
 // ! tasksChannel: The channel from which the worker will fetch tasks.
 // ! waitGroup: A pointer to the sync.WaitGroup, used to signal when the worker has completed all its tasks.
 func worker(workerId int, tasksChannel chan int, waitGroup *sync.WaitGroup) {
-	//! This ensures that wg.Done() is called when the worker function exits. It's used to signal that a goroutine has finished its work, and the WaitGroup can proceed.
+	//! This ensures that waitGroup.Done() is called when the worker function exits. It's used to signal that a goroutine has finished its work, and the WaitGroup can proceed.
+	//! Done decrements the [WaitGroup] counter by one.
 	defer waitGroup.Done()
 	//! This loop reads tasks from the tasks channel until it's closed. Each task is processed by the worker.
 	for taskId := range tasksChannel {
